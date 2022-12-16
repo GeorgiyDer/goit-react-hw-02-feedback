@@ -13,29 +13,13 @@ class App extends React.Component {
     bad: 0,
   };
 
-  makeGoodResult = () => {
-    this.setState(prevState => {
-      return {
-        good: prevState.good + 1,
-      };
-    });
-  };
+  leaveFeedback = (e) => { 
+    const selectBtn = e.currentTarget.innerText;
+    this.setState(prevState => ({
+      [selectBtn]: prevState[selectBtn] + 1,
+    }));
+  }
 
-  makeNeutralResult = () => {
-    this.setState(prevState => {
-      return {
-        neutral: prevState.neutral + 1,
-      };
-    });
-  };
-
-  makeBadResult = () => {
-    this.setState(prevState => {
-      return {
-        bad: prevState.bad + 1,
-      };
-    });
-  };
 
   countTotalFeedback = () => {
     const feedbackValues = Object.values(this.state).reduce((total, value) => {
@@ -54,7 +38,7 @@ class App extends React.Component {
   render() {
     return (
       <SectionTitle title="Please leave feedback">
-        <FeedbackOptions good={this.makeGoodResult} neutral={this.makeNeutralResult} bad={this.makeBadResult} />
+        <FeedbackOptions options={Object.keys(this.state)} onLeaveFeedback={this.leaveFeedback} />
         {this.countTotalFeedback() ?
           <Statistics
             title="Statistics"

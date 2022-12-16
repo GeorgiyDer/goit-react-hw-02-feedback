@@ -1,26 +1,17 @@
 import {StyledButton, StyledDiv} from './FeedbackOptions.styled'
 import PropTypes from 'prop-types';
 
-const FeedbackOptions = ({ good, neutral, bad }) => { 
+const FeedbackOptions = ({ onLeaveFeedback, options }) => { 
     return (
         <StyledDiv>
-            <StyledButton type="button" onClick={good}>
-                Good
-            </StyledButton>
-            <StyledButton type="button" onClick={neutral}>
-                Neutral
-            </StyledButton>
-            <StyledButton type="button" onClick={bad}>
-                Bad
-            </StyledButton>
+            {options.map(key => (<StyledButton key={key} onClick={onLeaveFeedback}>{key}</StyledButton>))}
         </StyledDiv>
     )
 }
 
 FeedbackOptions.propTypes = {
-    good: PropTypes.func,
-    neutral: PropTypes.func,
-    bad: PropTypes.func,
+    onLeaveFeedback: PropTypes.func.isRequired,
+    options: PropTypes.array.isRequired,
 };
 
 export default FeedbackOptions;
